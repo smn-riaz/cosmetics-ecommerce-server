@@ -1,12 +1,8 @@
 const mongoose = require("mongoose")
 
 const customerSchema = mongoose.Schema({
-    customerId:{
-        type:String,
-        required: true
-    },
     name:{
-        type: String,
+        type: Array,
         required: true
     },
     email:{
@@ -22,7 +18,15 @@ const customerSchema = mongoose.Schema({
     },
     order:{
         type:Array
-    }
+    },
+    role:{
+        type:String,
+        enum:['customer', 'admin']
+    },
+    city: String,
+    houseNum: String,
+    zip: String,
+    phone: String
 
 })
 

@@ -1,7 +1,7 @@
-const mongoose = requie("mongoose")
+const mongoose = require("mongoose")
 
 const productSchema = mongoose.Schema({
-    productId: {
+    id: {
         type: String,
         required: true
     },
@@ -17,14 +17,25 @@ const productSchema = mongoose.Schema({
         type: Number,
         required: true
     },
-    discountPrice:{
-        type: Number
-    },
-
     instock:{
         type: Number,
         required: true
     },
+    tags:{
+        type: Array,
+        required: true
+    },
+    producttype:{
+        type: String,
+        required: true
+    },
+    description:{
+        type: Array
+    },
+    category:{
+        type: String,
+        required: true
+    }
   
 })
 
