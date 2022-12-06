@@ -3,35 +3,12 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const router = express.Router();
 const customerSchema = require("../schemas/customerSchema");
+const jwt = require("jsonwebtoken")
 
 
 
 // create a model using customerSchema
 const Customer = new mongoose.model("Customer", customerSchema);
-
-
-
-// GET A CUSTOMER
-router.post("/aCustomer", async (req, res) => {
-  // console.log(req.body)
-  try {
-    const data = await Customer.find({
-      email: req.body.email,
-      password: req.body.password,
-    });
-    res.status(200).json({
-      data: data,
-      message: "Success",
-    });
-  } catch (err) {
-    res.status(500).json({
-      error: "There is a server side error!",
-    });
-  }
-});
-
-
-
 
 
 // ADD A CUSTOMER + REGISTER
@@ -79,5 +56,31 @@ router.post("/isEmailAvailable", async (req, res) => {
     });
   }
 });
+
+
+
+
+// USER SIGN IN
+router.post("/signin", async(req, res) => {
+  const user = await Customer.find({email: req.body.email})
+  if(user && user.length > 0 ){
+    const isValidPassword = await bcrypt.compare(req.body.password, user[0].password)
+    if(isValidPassword){
+        res.status(200).json({
+            result: user[0]
+          });
+    } else {
+        req.status(401).json({
+            "error": "Authentication failed!"
+        })
+    }
+  } else {
+    req.status(401).json({
+        "error": "Authentication failed!"
+    })
+  }
+})
+
+
 
 module.exports = router;
