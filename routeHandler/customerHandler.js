@@ -82,5 +82,24 @@ router.post("/signin", async(req, res) => {
 })
 
 
+//ADD CART DATA
+router.post("/addCart", (req, res) => {
+  console.log(req.body)
+  Customer.updateOne({email:req.body.email}, {
+          cart: req.body.cartItems
+  }, ((err) => {
+      if(err){
+          res.status(500).json({
+              error:"There is a server side error!"
+          })
+      } else{
+          res.status(200).json({
+              data: "Successfully Carted"
+          })
+      }
+  }))
+})
+
+
 
 module.exports = router;
