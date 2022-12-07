@@ -101,5 +101,26 @@ router.post("/addCart", (req, res) => {
 })
 
 
+// PLACE ORDER & CART BLANK
+router.post("/addOrderToCustomer", (req, res) => {
+    
+  Customer.update({_id:req.body._id}, {
+      $set: {
+          cart: []
+      }
+  }, ((err) => {
+      if(err){
+          res.status(500).json({
+              error:"There is a server side error!"
+          })
+      } else{
+          res.status(200).json({
+              message:"Successfully Order Placed"
+          })
+      }
+  }))
+})
+
+
 
 module.exports = router;
