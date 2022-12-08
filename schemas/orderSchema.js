@@ -5,7 +5,7 @@ const orderSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    date:{
+    orderDate:{
         type: String,
         required: true
     },

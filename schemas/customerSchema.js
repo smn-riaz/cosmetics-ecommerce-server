@@ -23,10 +23,11 @@ const customerSchema = mongoose.Schema({
         type:String,
         enum:['customer', 'admin']
     },
-    city: String,
-    houseNum: String,
-    zip: String,
-    phone: String
+
+    phone: {
+        type: String,
+        required: true
+    }
 
 })
 

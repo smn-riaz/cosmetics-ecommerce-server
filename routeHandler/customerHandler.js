@@ -13,6 +13,7 @@ const Customer = new mongoose.model("Customer", customerSchema);
 
 // ADD A CUSTOMER + REGISTER
 router.post("/addCustomer", async (req, res) => {
+
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
@@ -23,9 +24,6 @@ router.post("/addCustomer", async (req, res) => {
       cart: req.body.cart,
       order: req.body.order,
       role: req.body.role,
-      city: req.body.city,
-      houseNum: req.body.houseNum,
-      zip: req.body.zip,
       phone: req.body.phone,
     });
 
@@ -84,7 +82,7 @@ router.post("/signin", async(req, res) => {
 
 //ADD CART DATA
 router.post("/addCart", (req, res) => {
-  console.log(req.body)
+  // console.log(req.body)
   Customer.updateOne({email:req.body.email}, {
           cart: req.body.cartItems
   }, ((err) => {
