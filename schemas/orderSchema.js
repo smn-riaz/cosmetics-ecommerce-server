@@ -18,7 +18,7 @@ const orderSchema = mongoose.Schema({
         required: true
     },
     shippingAddress:{
-        type: String,
+        type: Object,
         required: true
     },
     orderProducts:{
@@ -33,7 +33,8 @@ const orderSchema = mongoose.Schema({
     totalPayment:{
         type: Number,
         required: true
-    }
+    },
+    shippingPhone: String
 
     
 })
