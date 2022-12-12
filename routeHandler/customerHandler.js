@@ -13,7 +13,7 @@ const Customer = new mongoose.model("Customer", customerSchema);
 
 // ADD A CUSTOMER + REGISTER
 router.post("/addCustomer", async (req, res) => {
-
+// console.log(req.body)
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
@@ -100,11 +100,12 @@ router.post("/addCart", (req, res) => {
 
 
 // PLACE ORDER & CART BLANK
-router.post("/addOrderToCustomer", (req, res) => {
-    
-  Customer.update({_id:req.body._id}, {
-      $set: {
-          cart: []
+router.post("/addOrder", (req, res) => {
+    // console.log(req.body)
+  Customer.updateOne({email: req.body.email}, {
+     cart: [],
+      $push: {
+          order: req.body.order
       }
   }, ((err) => {
       if(err){

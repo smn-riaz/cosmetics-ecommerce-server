@@ -4,21 +4,24 @@ const router = express.Router()
 
 const orderSchema = require("../schemas/orderSchema")
 
+const Order = new mongoose.model("Order", orderSchema);
 
-router.post("/addOrder", (req,res) => {
-    console.log(req.body)
-    const newOrder = new Order(req.body)
-    newOrder.save((err) => {
-        if(err){
-            res.status(500).json({
-                error:"There is a server side error!"
-            })
-        } else{
-            res.status(200).json({
-                message: "Order Added Successfully"
-            })
-        }
-    })
+
+
+router.post("/addOrder", async(req,res) => {
+    // console.log(req.body);
+    try {
+        const newOrder = new Order(req.body);
+
+        await newOrder.save();
+        res.status(200).json({
+          message: true,
+        })
+      } catch {
+        res.status(500).json({
+          message: false,
+        });
+      }
 })
 
 module.exports = router

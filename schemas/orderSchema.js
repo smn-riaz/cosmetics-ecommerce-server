@@ -2,11 +2,11 @@ const mongoose = require("mongoose")
 
 const orderSchema = mongoose.Schema({
     orderId:{
-        type: String,
+        type: Number,
         required: true
     },
     orderDate:{
-        type: String,
+        type: Object,
         required: true
     },
     email:{
@@ -17,24 +17,28 @@ const orderSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    shippingAddress:{
-        type: Object,
+    shippingAddress: {
+        type:Object,
         required: true
     },
     orderProducts:{
-        type:Array,
+        type: Array,
         required: true
     },
     deliveryStatus:{
-        type:String,
-        enum: ["Pending", "Done"],
+        type: String,
         required: true
     },
     totalPayment:{
         type: Number,
         required: true
     },
-    shippingPhone: String
+    shippingPhone: {
+        type: String
+    }
 
     
 })
+
+
+module.exports = orderSchema

@@ -41,6 +41,22 @@ router.get("/allProduct", (req,res)=> {
 })
 
 
+// FIND PRODUCT BY TYPE
+router.put("/productsByType", async (req, res) => {
+    try {
+      const data = await Customer.find({ 
+        producttype: req.body.email });
+      res.status(200).json({
+        result: data.length,
+      });
+    } catch (err) {
+      res.status(500).json({
+        error: "There is a server side error!",
+      });
+    }
+  });
+
+
 // ADD NEW PRODUCT
 router.post("/addProduct", (req, res) => {
     const newProduct = new Product(req.body)
