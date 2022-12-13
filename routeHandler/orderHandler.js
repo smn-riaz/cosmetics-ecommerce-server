@@ -24,4 +24,21 @@ router.post("/addOrder", async(req,res) => {
       }
 })
 
+
+// GET ALL ORDER
+router.get("/allOrder", (req,res)=> {
+    
+  Order.find({},((err, data) =>{
+      if(err){
+          res.status(500).json({
+              error: err
+          })
+      } else{
+          res.status(200).json({
+           data
+          })
+      }
+  }))
+})
+
 module.exports = router
