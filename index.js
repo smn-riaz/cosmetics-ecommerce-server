@@ -47,6 +47,10 @@ function errorHandler(err, req, res, next) {
     res.status(500).json({error: err})
 }
 
+//running
+app.get('/', (req, res) => {
+    res.send('Hey, Welcome to Cosmetics Ecommerce Server API')
+  })
 
 
 //listening port 
