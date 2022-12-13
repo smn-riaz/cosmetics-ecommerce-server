@@ -13,7 +13,6 @@ const Customer = new mongoose.model("Customer", customerSchema);
 
 // ADD A CUSTOMER + REGISTER
 router.post("/addCustomer", async (req, res) => {
-// console.log(req.body)
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
@@ -82,7 +81,6 @@ router.post("/signin", async(req, res) => {
 
 //ADD CART DATA
 router.post("/addCart", (req, res) => {
-  // console.log(req.body)
   Customer.updateOne({email:req.body.email}, {
           cart: req.body.cartItems
   }, ((err) => {
@@ -101,7 +99,6 @@ router.post("/addCart", (req, res) => {
 
 // PLACE ORDER & CART BLANK
 router.post("/addOrder", (req, res) => {
-    // console.log(req.body)
   Customer.updateOne({email: req.body.email}, {
      cart: [],
       $push: {
@@ -120,6 +117,22 @@ router.post("/addOrder", (req, res) => {
   }))
 })
 
+
+//GET ALL CUSTOMER
+router.get("/allCustomer", (req,res)=> {
+    
+  Customer.find({},((err, data) =>{
+      if(err){
+          res.status(500).json({
+              error: err
+          })
+      } else{
+          res.status(200).json({
+           data
+          })
+      }
+  }))
+})
 
 
 module.exports = router;

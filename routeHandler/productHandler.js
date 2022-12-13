@@ -41,13 +41,14 @@ router.get("/allProduct", (req,res)=> {
 })
 
 
-// FIND PRODUCT BY TYPE
-router.put("/productsByType", async (req, res) => {
+// GET A PRODUCT
+router.get("/:productId", async (req, res) => {
+  
     try {
-      const data = await Customer.find({ 
-        producttype: req.body.email });
+      const data = await Product.find({ 
+        id: req.params.productId });
       res.status(200).json({
-        result: data.length,
+        res: data[0]
       });
     } catch (err) {
       res.status(500).json({
