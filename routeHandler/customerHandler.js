@@ -13,7 +13,7 @@ const Customer = new mongoose.model("Customer", customerSchema);
 
 // ADD A CUSTOMER + REGISTER
 router.post("/addCustomer", async (req, res) => {
-  try {
+ 
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
     const newCustomer = new Customer({
@@ -30,11 +30,28 @@ router.post("/addCustomer", async (req, res) => {
     res.status(200).json({
       message: true,
     });
-  } catch {
+
     res.status(500).json({
       message: false,
     });
-  }
+
+});
+
+
+
+//DELETE CUSTOMER
+router.post("/deleteCustomer", (req, res) => {
+  Customer.deleteOne({_id:req.body.id}, ((err) => {
+if(err){
+    res.status(500).json({
+        error:"There is a server side error!"
+    })
+} else{
+    res.status(200).json({
+        data: "Successfully Deleted"
+    })
+}
+}))
 });
 
 
@@ -67,12 +84,12 @@ router.post("/signin", async(req, res) => {
             result: user[0]
           });
     } else {
-        req.status(401).json({
+        res.status(500).json({
             "error": "Authentication failed!"
         })
     }
   } else {
-    req.status(401).json({
+    res.status(500).json({
         "error": "Authentication failed!"
     })
   }

@@ -7,7 +7,7 @@ const orderSchema = require("../schemas/orderSchema")
 const Order = new mongoose.model("Order", orderSchema);
 
 
-
+// ADD A ORDER
 router.post("/addOrder", async(req,res) => {
     // console.log(req.body);
     try {
@@ -23,6 +23,24 @@ router.post("/addOrder", async(req,res) => {
         });
       }
 })
+
+
+//DELETE A ORDER
+router.post("/deleteOrder", (req, res) => {
+  Order.deleteOne({_id:req.body.id}, ((err) => {
+if(err){
+    res.status(500).json({
+        error:"There is a server side error!"
+    })
+} else{
+    res.status(200).json({
+        data: "Successfully Deleted"
+    })
+}
+}))
+});
+
+
 
 
 // GET ALL ORDER
