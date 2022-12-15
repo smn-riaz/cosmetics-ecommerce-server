@@ -40,7 +40,24 @@ if(err){
 }))
 });
 
-
+// UPDATE A ORDER
+router.post("/updateOrder",(req,res) =>{
+  // console.log(req.body)
+  Order.updateOne({orderId:req.body.orderId},
+      {$set:{
+        deliveryStatus: req.body.deliveryStatus
+      }},((err, data) => {
+          if(err){
+              res.status(500).json({
+                  error: err
+              })
+          } else{
+              res.status(200).json({
+                  data: "Updated Successfully"
+              })
+          }
+      }))
+})
 
 
 // GET ALL ORDER

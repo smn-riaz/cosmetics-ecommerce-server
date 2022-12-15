@@ -56,6 +56,26 @@ if(err){
 
 
 
+// UPDATE ORDER STATUS
+router.post("/updateOrder",(req,res) =>{
+  console.log(req.body)
+  Customer.updateOne({email:req.body.email, "order.orderId":req.body.orderId},
+      {$set:{
+        "order.$.deliveryStatus": req.body.deliveryStatus
+      }},((err, data) => {
+          if(err){
+              res.status(500).json({
+                  error: err
+              })
+          } else{
+              res.status(200).json({
+                  data: "Updated Successfully"
+              })
+          }
+      }))
+})
+
+
 
 // USER EMAIL AVAILABILITY
 router.post("/isEmailAvailable", async (req, res) => {
